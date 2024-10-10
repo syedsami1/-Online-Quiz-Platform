@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import QuizForm from './components/QuizForm';
+import QuizList from './components/QuizList';
+import Quiz from './components/Quiz';
 
-function App() {
+const App: React.FC = () => {
+  const [quizzes, setQuizzes] = useState<{ title: string; questions: any[] }[]>([]);
+
+  const handleAddQuiz = (quiz: { title: string; questions: any[] }) => {
+    setQuizzes([...quizzes, quiz]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <h1>Online Quiz Platform</h1>
+        <Routes>
+          <Route path="/" element={<QuizForm onAddQuiz={handleAddQuiz} />} />
+          <Route path="/quizzes" element={<QuizList quizzes={quizzes.map((q, i) => ({ title: q.title, id: i }))} />} />
+          <Route path="/quiz/:id" element={<Quiz quizzes={quizzes} />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
