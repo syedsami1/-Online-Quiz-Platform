@@ -27,7 +27,7 @@ Make sure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/quiz-platform.git
+   git clone https://github.com/syedsami1/-Online-Quiz-Platform.git
    cd quiz-platform
    ```
 
